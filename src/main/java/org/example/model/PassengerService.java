@@ -8,13 +8,16 @@ public class PassengerService {
 
     public List<Passenger> filterPassengersByType(List<Passenger> people, PassengerType... passengerType)
     {
-        // started running out of time.
-        allowedTypesList = passengerType
+        // Make list out of allowed types.
+        List<PassengerType> allowedTypesList = List.of(passengerType);
+
         ArrayList<Passenger> filtered = new ArrayList<>();
 
-        for person in people:
-            if person.getType in allowedTypesList:
+        for (Passenger person : people) {
+            if (allowedTypesList.contains(person.getType())) {
                 filtered.add(person);
+            }
+        }
 
         return filtered;
         //throw new UnsupportedOperationException ("Implement function that filters passengers by given types");
@@ -35,7 +38,7 @@ public class PassengerService {
 
     public Double computeTotalCost(Passenger passenger)
     {
-        // 
+        //
         throw new UnsupportedOperationException ("Implement function that returns total cost of passenger (fare price + (5 * luggage count))");
     }
 
