@@ -13,10 +13,15 @@ public class Aeroplane {
         passengers.add(passenger);
         System.out.println(passenger.getDescription());
 
-        return "Welcome " + passenger.getType();
+        if (passenger.getType() == PassengerType.ECONOMY) {
+            return "Welcome Economy Passenger " + passenger.getName();
+        } else if (passenger.getType() == PassengerType.BUSINESS_CLASS) {
+            return "Welcome Business Class Passenger " + passenger.getName();
+        }
         //throw new UnsupportedOperationException ("Add passenger to passengers list");
         // throw new UnsupportedOperationException ("Print passenger description if it is not null");
         // throw new UnsupportedOperationException ("Print a welcome message for each passenger type, see unit test shouldAddPassengerOnEnter for expected message");
+        return null;
     }
 
     public List<Passenger> bulkEnter(Passenger... passenger)
