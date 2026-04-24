@@ -136,19 +136,27 @@ public class PassengerService {
     }
 
     public  List<Passenger> sortBySeatNumber(List<Passenger> passengers) {
+        // Did this one after findPassengerIdWithLowestSeatNumber, different method
 
-        List<Passenger> sortedList = new ArrayList<>(passengers); // Use numbers first, use letters for matching numbers.
+        List<Passenger> sortedList = new ArrayList<>(passengers);
 
-        for (Passenger passenger : sortedList) {
-            passenger.setSeatNumber(passenger.getSeatNumber().replaceAll("[^0-9]", "")); // Keep only the numbers
-        }
 
-        sortedList.sort(Comparator.comparing(Passenger::getSeatNumber));
+        sortedList.sort((p1, p2) -> {
+            // get the number bit
+            int row1 = Integer.parseInt(p1.getSeatNumber().replaceAll("[^0-9]", ""));
+            int row2 = Integer.parseInt(p2.getSeatNumber().replaceAll("[^0-9]", ""));
 
-        // Can sort out collision with letters after that.
+            // Sort by the num
+            if (row1 != row2) {
+                return Integer.compare(row2, row1);
+            }
+
+            // Then sort by full string
+            // only runs if row1 equals row2
+            return p2.getSeatNumber().compareTo(p1.getSeatNumber());
+        });
+
         return sortedList;
-
-        //throw new UnsupportedOperationException ("Implement function that sorts passengers by seat number");
     }
 
     public UUID findPassengerIdBySeatNumber(List<Passenger> passengers, String seatNumber) {
